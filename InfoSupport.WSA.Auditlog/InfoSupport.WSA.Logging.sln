@@ -10,11 +10,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		global.json = global.json
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "InfoSupport.WSA.Auditlog", "src\InfoSupport.WSA.Auditlog\InfoSupport.WSA.Auditlog.xproj", "{DA66869D-7DD0-43FD-AF20-EED6BE301A93}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "InfoSupport.WSA.Logging", "src\InfoSupport.WSA.Auditlog\InfoSupport.WSA.Logging.xproj", "{DA66869D-7DD0-43FD-AF20-EED6BE301A93}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D3C72EE0-0F5E-47CE-9A3A-38FA74E819A0}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "InfoSupport.WSA.Auditlog.Test", "test\InfoSupport.WSA.Auditlog.Test\InfoSupport.WSA.Auditlog.Test.xproj", "{67FC0A32-BF84-49BE-9A58-0AC204D17ABD}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "InfoSupport.WSA.Logging.Test", "test\InfoSupport.WSA.Auditlog.Test\InfoSupport.WSA.Logging.Test.xproj", "{67FC0A32-BF84-49BE-9A58-0AC204D17ABD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

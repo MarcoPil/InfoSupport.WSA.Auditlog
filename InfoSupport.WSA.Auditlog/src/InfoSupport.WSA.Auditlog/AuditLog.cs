@@ -1,0 +1,61 @@
+﻿using System;
+using InfoSupport.WSA.Infrastructure;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+using System.Text;
+using Newtonsoft.Json;
+using InfoSupport.WSA.Logging.Model;
+
+namespace InfoSupport.WSA.Logging
+{
+    public class Auditlog : EventBusBase
+    {
+        private readonly ILogRepository _logRepo;
+
+        public Auditlog(ILogRepository logRepo, BusOptions options = default(BusOptions)) : base(options)
+        {
+            _logRepo = logRepo;
+        }
+
+        public void Start()
+        {
+            var queueName = Channel.QueueDeclare().QueueName;
+            Channel.QueueBind(exchange: BusOptions.ExchangeName,
+                              queue: queueName,
+                              routingKey: "#");
+
+            var consumer = new EventingBasicConsumer(Channel);
+            consumer.Received += EventReceived;
+
+            Channel.BasicConsume(queue: queueName,
+                                 noAck: true,
+                                 consumer: consumer);
+        }
+
+        private void EventReceived(object sender, BasicDeliverEventArgs e)
+        {
+            try
+            {
+                string eventType = e.BasicProperties.Type;
+                long timestamp = e.BasicProperties.Timestamp.UnixTime;
+                string eventJson = Encoding.UTF8.GetString(e.Body);
+                dynamic obj = JsonConvert.DeserializeObject(eventJson);
+                string routingKey = obj.RoutingKey;
+
+                LogEntry logEntry = new LogEntry
+                {
+                    EventType = eventType,
+                    Timestamp = timestamp,
+                    RoutingKey = routingKey,
+                    EventJson = eventJson,
+                };
+
+                _logRepo.AddEntry(logEntry);
+            }
+            catch
+            {
+                // If something goes wrong, we fail silently
+            }
+        }
+    }
+}
