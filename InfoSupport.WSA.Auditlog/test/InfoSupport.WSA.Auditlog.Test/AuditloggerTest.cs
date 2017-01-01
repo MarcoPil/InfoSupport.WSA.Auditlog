@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using Xunit;
 
 
-public class AuditlogTest
+public class AuditloggerTest
 {
     [Fact]
     public void Received_Events_Become_LogEntries()
@@ -26,7 +26,7 @@ public class AuditlogTest
 
         // Arrange Infrastructure
         var options = new BusOptions() { ExchangeName = "Auditlog01" };
-        using (var logger = new Auditlog(mock.Object, options))
+        using (var logger = new AuditlogEventListener(mock.Object, options))
         using (var publisher = new EventPublisher(options))
         {
             logger.Start();

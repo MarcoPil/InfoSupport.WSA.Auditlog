@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "InfoSupport.WSA.Auditlog": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "WSA_AUDITLOG_ENV": "console"
+      }
+    }
+  }
+}

@@ -8,17 +8,19 @@ using InfoSupport.WSA.Logging.Model;
 
 namespace InfoSupport.WSA.Logging
 {
-    public class Auditlog : EventBusBase
+    public class AuditlogEventListener : EventBusBase
     {
         private readonly ILogRepository _logRepo;
 
-        public Auditlog(ILogRepository logRepo, BusOptions options = default(BusOptions)) : base(options)
+        public AuditlogEventListener(ILogRepository logRepo, BusOptions options = default(BusOptions)) : base(options)
         {
             _logRepo = logRepo;
         }
 
         public void Start()
         {
+            Open();    // Opens a RabbitMQ connection
+
             var queueName = Channel.QueueDeclare().QueueName;
             Channel.QueueBind(exchange: BusOptions.ExchangeName,
                               queue: queueName,
